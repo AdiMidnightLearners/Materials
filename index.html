@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Learning Resources · Private Student Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f4ef;--ink:#171716;--muted:#74716a;--line:#ddd9d0;
+  --card:#fffdf8;--green:#163d35;--pale:#e2ece5;--red:#8b3434;
+  --shadow:0 14px 42px rgba(30,27,20,.07);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px "DM Sans",sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.app{width:min(1120px,100%);margin:auto;padding:0 28px}
+header{
+  height:78px;border-bottom:1px solid var(--line);display:flex;
+  align-items:center;justify-content:space-between;gap:16px
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700}
+.mark{
+  width:32px;height:32px;border-radius:50%;background:var(--green);
+  color:#fff;display:grid;place-items:center;font-size:11px
+}
+
+.hero{padding:72px 0 48px;display:block}
+.eyebrow{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);font-weight:700}
+h1{
+  font:500 clamp(48px,7vw,78px)/.96 "Playfair Display",serif;
+  letter-spacing:-.055em;margin:13px 0 20px
+}
+.hero p{color:var(--muted);line-height:1.75;max-width:610px}
+.mentor-badge{
+  display:inline-flex;align-items:center;gap:7px;margin-top:20px;
+  padding:8px 11px;border:1px solid #c5d9cb;border-radius:999px;
+  background:var(--pale);color:var(--green);font-size:10px;
+  letter-spacing:.08em;text-transform:uppercase
+}
+.mentor-badge strong{font-weight:700;letter-spacing:0}
+.hero-side{border-left:1px solid var(--line);padding-left:28px;display:flex;flex-direction:column;justify-content:center}
+.hero-side h2{font:500 30px "Playfair Display",serif;margin:8px 0}
+.hero-side p{font-size:12px;line-height:1.7;color:var(--muted)}
+.small{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.grid{display:grid;gap:14px}
+.two{grid-template-columns:repeat(2,1fr)}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:22px;
+  box-shadow:var(--shadow);min-width:0
+}
+.program{padding:25px;display:flex;flex-direction:column;min-height:270px}
+.program-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+ 
+.program h2{font:500 29px "Playfair Display",serif;margin:18px 0 7px}
+.program p{color:var(--muted);font-size:12px;line-height:1.7;margin:0}
+.resource-count{
+  display:inline-flex;align-items:center;gap:6px;color:var(--green);
+  background:var(--pale);padding:6px 9px;border-radius:999px;
+  font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em
+}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid var(--line);background:var(--card);padding:11px 15px;
+  border-radius:999px;white-space:nowrap
+}
+.btn.dark{background:var(--green);color:#fff;border-color:var(--green)}
+.btn.full{width:100%}
+.program .btn{margin-top:auto}
+.section{padding:20px 0 65px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:16px}
+.section-head h2{font:500 30px "Playfair Display",serif;margin:0}
+.section-head p{font-size:11px;color:var(--muted);margin:5px 0 0}
+.hidden{display:none!important}
+.resource-view{display:none;padding-bottom:70px}
+.resource-view.active{display:block;animation:fade .2s}
+@keyframes fade{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:none}}
+.back-link{
+  margin-top:34px;margin-bottom:28px;padding:10px 15px;
+  border:1px solid var(--green);border-radius:999px;background:var(--green);
+  color:#fff;font-size:11px;font-weight:600;transition:.15s;
+  box-shadow:0 7px 18px rgba(22,61,53,.12)
+}
+.back-link:hover{transform:translateY(-1px);box-shadow:0 9px 22px rgba(22,61,53,.17)}
+.toolbar{display:flex;gap:8px;margin-bottom:14px}
+.field{
+  width:100%;border:1px solid var(--line);background:var(--card);
+  border-radius:11px;padding:11px 12px;outline:0
+}
+.field:focus{border-color:#8d958b}
+.resource-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:100%}
+.resource{
+  display:flex;flex-direction:column;align-items:stretch;justify-content:space-between;
+  gap:14px;padding:17px
+}
+.resource-main{display:flex;align-items:center;gap:13px;min-width:0}
+.pdf-icon{
+  width:39px;height:39px;flex:0 0 39px;border-radius:11px;
+  background:#f2eee6;border:1px solid var(--line);display:grid;place-items:center;
+  color:var(--green);font-size:9px;font-weight:700
+}
+.resource-title{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.resource-meta{font-size:9px;color:var(--muted);margin-top:3px}
+.empty{padding:35px;text-align:center;color:var(--muted);font-size:11px}
+.footer{
+  border-top:1px solid var(--line);padding:20px 0 35px;
+  display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:9px
+}
+.modal{
+  position:fixed;inset:0;background:rgba(15,15,13,.5);backdrop-filter:blur(6px);
+  display:none;place-items:center;padding:18px;z-index:20
+}
+.modal.open{display:grid}
+.box{
+  width:min(430px,100%);background:var(--bg);border:1px solid var(--line);
+  border-radius:22px;padding:24px;box-shadow:var(--shadow)
+}
+.box h3{font:500 29px "Playfair Display",serif;margin:0 0 7px}
+.box p{font-size:11px;color:var(--muted);line-height:1.6}
+.form{display:grid;gap:10px;margin-top:17px}
+.actions{display:flex;gap:8px;margin-top:4px}
+.actions .btn{flex:1}
+.error{min-height:15px;color:var(--red);font-size:10px}
+.notice{
+  margin-top:13px;padding:10px 12px;border:1px solid var(--line);
+  border-radius:11px;background:#faf8f2;color:var(--muted);font-size:9px;line-height:1.55
+}
+
+
+@media(max-width:800px){
+  .app{padding:0 18px}.hero{grid-template-columns:1fr;gap:28px;padding-top:52px}
+  .hero-side{border:0;border-top:1px solid var(--line);padding:24px 0 0}
+  .two{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  header{height:70px}.header-note{display:none}
+  .app{padding:0 14px}h1{font-size:53px}
+  .program{min-height:245px;padding:20px}
+  .resource{align-items:flex-start}.resource .btn{padding:9px 11px;width:100%}
+  .footer{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <a class="brand" href="#" onclick="showHome();return false">
+      <span class="mark">L</span>Learning · Library
+    </a>
+
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Student access · private · organised</div>
+        <h1>Learn without<br>the clutter.</h1>
+        <p>
+          A simple private library for your study materials. Choose your programme,
+          enter its access password, and open the PDF resources you need.
+        </p>
+        <div class="mentor-badge">Mentor <strong>Adhiraag</strong></div>
+      </div>
+
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Materials</h2>
+          <p>Select your student category to continue.</p>
+        </div>
+      </div>
+
+      <div class="grid two">
+        <article class="card program">
+          <div class="program-top">
+            <span class="resource-count">B.Tech</span>
+          </div>
+          <h2>B.Tech Students</h2>
+          <p>
+            Lecture notes, reference PDFs, previous papers, assignments and
+            other resources for B.Tech learners.
+          </p>
+          <button class="btn dark" onclick="openGate('btech')">Enter B.Tech materials →</button>
+        </article>
+
+        <article class="card program">
+          <div class="program-top">
+            <span class="resource-count">Diploma</span>
+          </div>
+          <h2>Diploma Students</h2>
+          <p>
+            Study notes, reference PDFs, practical materials, question papers
+            and other resources for Diploma learners.
+          </p>
+          <button class="btn dark" onclick="openGate('diploma')">Enter Diploma materials →</button>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <section id="resources" class="resource-view">
+    <button class="back-link" onclick="showHome()">← Back</button>
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" id="resourceEyebrow">Private library</div>
+        <h2 id="resourceTitle">Resources</h2>
+        <p id="resourceSubtitle">Your protected study materials.</p>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <input id="search" class="field" placeholder="Search resources…" oninput="renderResources()">
+    </div>
+    <div id="resourceList" class="resource-list"></div>
+  </section>
+
+</div>
+
+<div class="modal" id="gateModal">
+  <div class="box">
+    <div class="eyebrow" id="gateEyebrow">Private access</div>
+    <h3 id="gateTitle">Enter password</h3>
+    <p id="gateDescription">Use the password provided for this student group.</p>
+    <div class="form">
+      <input id="gatePassword" class="field" type="password" placeholder="Password" autocomplete="off">
+      <div id="gateError" class="error"></div>
+      <div class="actions">
+        <button class="btn" onclick="closeGate()">Cancel</button>
+        <button class="btn dark" onclick="unlock()">Unlock library</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+  ============================================================
+  CONFIGURATION
+  ============================================================
+  Change these two passwords before publishing.
+
+  Put ALL your PDFs in one GitHub folder:
+    /Materials/
+
+  Add only the PDF filename to the resource arrays below.
+  The Materials path is configured once in MATERIALS_PATH.
+
+  IMPORTANT:
+  This is a GitHub/static-site password gate, not true file security.
+  Anyone who has the repository or knows a PDF's direct URL can still
+  access the files. For real private files, use authenticated storage
+  (e.g. Supabase Storage with access control) instead.
+*/
+const CONFIG = {
+  passwords: {
+    btech: "BTM",
+    diploma: "MLM"
+  },
+
+  // Change this only if you rename the GitHub materials folder.
+  MATERIALS_PATH: "Materials",
+
+  resources: {
+    btech: [
+    { title: "Day 01 Java", file: "day-01-java.pdf", meta: "PDF" },
+    { title: "Day 02 Java", file: "day-02-java.pdf", meta: "PDF" },
+    { title: "Day 03 Java", file: "day-03-java.pdf", meta: "PDF" },
+    { title: "Day 04 Java", file: "day-04-java.pdf", meta: "PDF" },
+    { title: "Day 05 Java", file: "day-05-java.pdf", meta: "PDF" },
+    { title: "Day 06 Java", file: "day-06-java.pdf", meta: "PDF" },
+    { title: "Day 07 Java", file: "day-07-java.pdf", meta: "PDF" },
+    { title: "Day 08 Java", file: "day-08-java.pdf", meta: "PDF" },
+    { title: "Day 09 Java", file: "day-09-java.pdf", meta: "PDF" },
+    { title: "Day 10 Java", file: "day-10-java.pdf", meta: "PDF" }
+    ],
+    diploma: [
+    { title: "Day 01 ML", file: "day-01-ml.pdf", meta: "PDF" },
+    { title: "Day 02 ML", file: "day-02-ml.pdf", meta: "PDF" },
+    { title: "Day 03 ML", file: "day-03-ml.pdf", meta: "PDF" },
+    { title: "Day 04 ML", file: "day-04-ml.pdf", meta: "PDF" },
+    { title: "Day 05 ML", file: "day-05-ml.pdf", meta: "PDF" },
+    { title: "Day 06 ML", file: "day-06-ml.pdf", meta: "PDF" },
+    { title: "Day 07 ML", file: "day-07-ml.pdf", meta: "PDF" },
+    { title: "Day 08 ML", file: "day-08-ml.pdf", meta: "PDF" },
+    { title: "Day 09 ML", file: "day-09-ml.pdf", meta: "PDF" },
+    { title: "Day 10 ML", file: "day-10-ml.pdf", meta: "PDF" }
+    ]
+  }
+};
+
+let activeGroup = null;
+
+function openGate(group){
+  activeGroup = group;
+  const name = group === "btech" ? "B.Tech Students" : "Diploma Students";
+  document.getElementById("gateEyebrow").textContent = name + " · private access";
+  document.getElementById("gateTitle").textContent = "Enter password";
+  document.getElementById("gateDescription").textContent =
+    "Enter the password for the " + name + " materials section.";
+  document.getElementById("gatePassword").value = "";
+  document.getElementById("gateError").textContent = "";
+  document.getElementById("gateModal").classList.add("open");
+  setTimeout(() => document.getElementById("gatePassword").focus(), 50);
+}
+
+function closeGate(){
+  document.getElementById("gateModal").classList.remove("open");
+}
+
+function unlock(){
+  const entered = document.getElementById("gatePassword").value;
+  if(entered !== CONFIG.passwords[activeGroup]){
+    document.getElementById("gateError").textContent = "Incorrect password. Please try again.";
+    return;
+  }
+  closeGate();
+  showResources(activeGroup);
+}
+
+document.getElementById("gatePassword").addEventListener("keydown", e => {
+  if(e.key === "Enter") unlock();
+});
+
+document.getElementById("gateModal").addEventListener("click", e => {
+  if(e.target.id === "gateModal") closeGate();
+});
+
+function showResources(group){
+  activeGroup = group;
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("resources").classList.add("active");
+  document.getElementById("resourceEyebrow").textContent =
+    group === "btech" ? "B.Tech · private library" : "Diploma · private library";
+  document.getElementById("resourceTitle").textContent =
+    group === "btech" ? "B.Tech materials" : "Diploma materials";
+  document.getElementById("resourceSubtitle").textContent =
+    group === "btech"
+      ? "Resources available for B.Tech learners."
+      : "Resources available for Diploma learners.";
+  document.getElementById("search").value = "";
+  renderResources();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function showHome(){
+  document.getElementById("resources").classList.remove("active");
+  document.getElementById("home").classList.remove("hidden");
+  activeGroup = null;
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function renderResources(){
+  if(!activeGroup) return;
+  const query = document.getElementById("search").value.trim().toLowerCase();
+  const items = CONFIG.resources[activeGroup] || [];
+  const filtered = items.filter(item =>
+    (item.title + " " + (item.meta || "")).toLowerCase().includes(query)
+  );
+
+  const list = document.getElementById("resourceList");
+
+  if(!filtered.length){
+    list.innerHTML = `
+      <div class="card empty">
+        ${items.length
+          ? "No resources match your search."
+          : "No resources are available yet."}
+      </div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(item => {
+    const safeTitle = escapeHtml(item.title);
+    const safeMeta = escapeHtml(item.meta || "PDF resource");
+    const safeFile = encodeURI(`${CONFIG.MATERIALS_PATH}/${item.file}`);
+    return `
+      <article class="card resource">
+        <div class="resource-main">
+          <div class="pdf-icon">PDF</div>
+          <div>
+            <div class="resource-title">${safeTitle}</div>
+            <div class="resource-meta">${safeMeta}</div>
+          </div>
+        </div>
+        <a class="btn dark" href="${safeFile}" target="_blank" rel="noopener">Open PDF ↗</a>
+      </article>`;
+  }).join("");
+}
+
+function escapeHtml(value){
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[ch]));
+}
+</script>
+</body>
+</html>
